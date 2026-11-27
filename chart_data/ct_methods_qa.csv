@@ -1,0 +1,9 @@
+build_id,sample_build,step,group,phase,question,response,n,unit,detail
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,1,find,Discovery,Where does Ceuta come up on TikTok?,Ran 546 search terms and 89 hashtag pages,93636,videos found,"32,105 about Ceuta"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,2,find,Corpus,Which videos are about Ceuta?,Kept posts from 1 Jul – 30 Sep 2026 that name a Ceuta place,43984,Ceuta videos,"13,976 creators · 3.76 billion plays"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,3,creators,Creator frame,Who drives the conversation?,Ranked creators by plays on what search found; kept the top 500,500,creators,2+ videos · 208 news outlets out · all walked
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,4,creators,Creator walk,What else do those creators post?,"Collected every post they made in the window, with the video",85155,posts,"16,490 about Ceuta · 11,384 new to the corpus"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,5,audience,Comments,How do audiences respond?,"Read the first page of comments (about 30, TikTok's order) on every video with 30+",406573,comments,"on 13,117 of 13,306 videos"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,6,audience,Replies,Where do arguments develop?,Read the replies under every comment with 20+ replies,140170,replies,"under 5,142 of 5,195 comments"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,7,creators,Profiles,How far beyond its followers does a video reach?,"Took each creator's follower count, the yardstick for reach",13954,creators measured,"99.8% of 13,976"
+20261111T093751Z-b650742a,20261111T093751Z-b650742a,8,core,Coded sample,What do the videos and comments actually say?,"Coded a sample of videos in full, and every caption and comment",9472,videos,"5,031 most played · 1,524 random · 2,440 top-creator · 477 added"

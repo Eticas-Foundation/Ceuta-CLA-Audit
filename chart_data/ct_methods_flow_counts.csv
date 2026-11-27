@@ -1,0 +1,51 @@
+build_id,step,key,value,note
+20261111T093751Z-b650742a,1,keyword_terms,546,distinct search terms or tags run (our own collection)
+20261111T093751Z-b650742a,1,keyword_videos,55715,distinct videos returned
+20261111T093751Z-b650742a,1,keyword_ceuta,17874,
+20261111T093751Z-b650742a,1,hashtag_terms,89,distinct search terms or tags run (our own collection)
+20261111T093751Z-b650742a,1,hashtag_videos,43123,distinct videos returned
+20261111T093751Z-b650742a,1,hashtag_ceuta,17939,
+20261111T093751Z-b650742a,1,discovery_videos,93636,
+20261111T093751Z-b650742a,1,discovery_ceuta,32105,
+20261111T093751Z-b650742a,1,kw_terms_rounds34,442,"keyword terms first listed in the earlier collection's rounds 3-4 (8 Oct), written by hand: mostly place x event pairs"
+20261111T093751Z-b650742a,1,kw_terms_snowball,24,keyword terms from the 11 Oct snowball
+20261111T093751Z-b650742a,1,ht_terms_snowball,24,tags from the 11 Oct snowball
+20261111T093751Z-b650742a,1,kw_terms_round2,20,"keyword terms from round 2 (8 Oct), partly a first snowball"
+20261111T093751Z-b650742a,1,ht_terms_round2,37,"tags from round 2 (8 Oct), partly a first snowball"
+20261111T093751Z-b650742a,2,out_of_window,67142,
+20261111T093751Z-b650742a,2,in_window_no_anchor,109649,mostly the walked creators' other posts: kept as creator context
+20261111T093751Z-b650742a,2,in_frame_no_payload,2408,known only from the earlier collection's spreadsheet
+20261111T093751Z-b650742a,2,corpus_videos,43984,
+20261111T093751Z-b650742a,2,corpus_creators,13976,
+20261111T093751Z-b650742a,2,corpus_plays,3760918870,
+20261111T093751Z-b650742a,2,corpus_found_by_discovery,32105,
+20261111T093751Z-b650742a,2,corpus_found_by_walk_only,11384,"Ceuta posts only the creator walk found; in the corpus, labelled by route"
+20261111T093751Z-b650742a,2,corpus_found_other,495,found only by other reads: almost all by the shorter 6-7 Oct reads of the same creators' posts
+20261111T093751Z-b650742a,2,corpus_with_video,37588,
+20261111T093751Z-b650742a,3,with_min_videos,4074,>= 2 discovery-found videos
+20261111T093751Z-b650742a,3,outlet_list,208,
+20261111T093751Z-b650742a,3,frame_creators,500,top 500 by plays on the 20 Oct build (pinned)
+20261111T093751Z-b650742a,3,frame_plays_share,0.2195,the frame's share of discovery-found corpus plays
+20261111T093751Z-b650742a,3,frame_walked,500,
+20261111T093751Z-b650742a,3,walked_outside_frame,377,"walked but not in the frame: earlier rankings, a 14-15 Oct setting error, and the 4 Nov partner walks; kept, labelled"
+20261111T093751Z-b650742a,3,walked_outside_frame_partner,7,"of them, accounts Eticas's partner named, walked on 4 Nov (one more returned no posts, so no account to count)"
+20261111T093751Z-b650742a,4,walk_found_new,11384,
+20261111T093751Z-b650742a,5,eligible_videos,13306,corpus videos with >= 30 comments
+20261111T093751Z-b650742a,5,eligible_videos_covered,13117,
+20261111T093751Z-b650742a,5,comments_held,406573,
+20261111T093751Z-b650742a,5,comments_inherited_text,26206,"text from the earlier collection, kept and labelled"
+20261111T093751Z-b650742a,6,threads_ge20,5195,top-level comments with >= 20 replies
+20261111T093751Z-b650742a,6,threads_ge20_covered,5142,
+20261111T093751Z-b650742a,6,threads_ge30,3026,top-level comments with >= 30 replies
+20261111T093751Z-b650742a,6,threads_ge30_covered,2997,
+20261111T093751Z-b650742a,6,replies_held,140170,
+20261111T093751Z-b650742a,7,corpus_creators,13976,
+20261111T093751Z-b650742a,7,follower_count_known,13954,
+20261111T093751Z-b650742a,7,follower_source_sighting,7789,
+20261111T093751Z-b650742a,7,follower_source_profile,6165,
+20261111T093751Z-b650742a,7,follower_source_none,22,
+20261111T093751Z-b650742a,8,stratum_top,5031,
+20261111T093751Z-b650742a,8,stratum_random,1524,
+20261111T093751Z-b650742a,8,sample_videos,9472,
+20261111T093751Z-b650742a,8,no_voice,1534,"the voice filter heard no speech: the model was told nothing was spoken, no transcript"
+20261111T093751Z-b650742a,8,comments_not_coded,32,comments and replies held with no code

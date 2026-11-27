@@ -1,0 +1,13 @@
+topic,label,video_share,play_share,hate_share
+unrelated,"unrelated, only tagged Ceuta",0.2962,0.2222,0.0231
+crossing,the crossing itself,0.1342,0.2632,0.1027
+politics_spain,Spanish politics,0.1282,0.0949,0.1426
+security_returns,"army, police and returns",0.091,0.1126,0.0638
+morocco_spain,Morocco and Spain,0.0904,0.0521,0.0546
+aftermath_city,life in Ceuta afterwards,0.0815,0.0998,0.2468
+protest,protests,0.0628,0.0314,0.1298
+migrant_voices,the migrants' own voices,0.0348,0.0523,0.0578
+other,other,0.0314,0.0249,0.1382
+solidarity,solidarity,0.0226,0.0139,0.0048
+minors,unaccompanied minors,0.0142,0.0154,0.0465
+deaths_rescue,deaths and rescues,0.0126,0.0174,0.0502

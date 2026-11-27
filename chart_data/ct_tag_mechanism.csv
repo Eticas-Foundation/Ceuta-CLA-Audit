@@ -1,0 +1,7 @@
+role,tag,role_label,step,value,detail
+restricted,menas,unlinked,tag_page,0,videos on its first page
+restricted,menas,unlinked,caption,30 of 30,tagged posts come back with an empty caption
+restricted,menas,unlinked,website,plain text,how the tag shows in the post's caption
+ordinary,mena,"the same word, singular",tag_page,17,videos on its first page
+ordinary,mena,"the same word, singular",caption,2 of 54,tagged posts come back with an empty caption
+ordinary,mena,"the same word, singular",website,a link,how the tag shows in the post's caption

@@ -1,0 +1,8 @@
+group,order,post_share,view_share,n_core
+News outlets,1,0.11118,0.44299,43984
+Top 10 creators,2,0.02885,0.17732,43984
+"Creators under 10,000 followers",3,0.46537,0.15013,43984
+Posted from Spain,4,0.50475,0.41644,43984
+Posted from Morocco,5,0.21255,0.08813,43984
+Invasion vocabulary in caption,6,0.0547,0.04352,43984
+Clearly hateful (estimated),7,0.08566,0.06225,43984
