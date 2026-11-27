@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data — Ceuta | Eticas Foundation</title>
+<meta name="description" content="Aggregate data behind the Ceuta report: chart tables and every number the report prints.">
+<meta property="og:title" content="Data — Ceuta | Eticas Foundation">
+<meta property="og:description" content="Aggregate data behind the Ceuta report: chart tables and every number the report prints.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Raleway:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../"><img src="../assets/eticas-foundation-logo.png" alt="Eticas Foundation"></a>
+    <nav class="site-nav"><a href="../">Findings</a><a href="../report/">Report</a><a href="../draft/">Draft case study</a><a href="../data/" class="active">Data</a><a href="../codebook/">Codebook</a><a href="https://github.com/Eticas-Foundation/Ceuta-CLA-Audit">GitHub</a></nav>
+  </div>
+  <div class="brandbar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<section class="doc-head"><div class="inner">
+  <p class="eyebrow">Data</p>
+  <h1>The aggregate data behind the report</h1>
+  <p>Every chart and number in the report can be reproduced from these files. They are plain CSV (UTF-8, comma-separated).</p>
+</div></section>
+<div class="doc-layout single">
+  <article class="prose" style="max-width:none">
+  <h2>Chart data</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>File</th><th>What it holds</th><th class="num">Size</th></tr></thead>
+    <tbody><tr><td><a class="dl" href="../chart_data/ct_daily.csv" download>ct_daily.csv</a></td><td>Videos and plays per day, with the coded videos and the clearly hateful ones among them</td><td class="num">3.5 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_hate_weekly.csv" download>ct_hate_weekly.csv</a></td><td>Clearly hateful share of videos and of plays, by week (corpus estimates)</td><td class="num">0.4 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_themes.csv" download>ct_themes.csv</a></td><td>What the clearly hateful videos said: each theme&#x27;s share of videos and of plays</td><td class="num">1.0 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_topics.csv" download>ct_topics.csv</a></td><td>What the Ceuta videos were about: each main topic&#x27;s share of videos and plays, and the clearly hateful share in it</td><td class="num">0.7 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_incidents.csv" download>ct_incidents.csv</a></td><td>The events the clearly hateful videos showed, with videos and plays</td><td class="num">0.5 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_reach_share.csv" download>ct_reach_share.csv</a></td><td>Share of videos and of plays by group (news outlets, top creators, small creators, Spain, Morocco, ...)</td><td class="num">0.4 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_size_bands.csv" download>ct_size_bands.csv</a></td><td>Plays beyond the follower count, by creator size</td><td class="num">0.3 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_size_model.csv" download>ct_size_model.csv</a></td><td>Plays against the creator&#x27;s followers, one row per video (no IDs)</td><td class="num">904.4 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_size_model_fit.csv" download>ct_size_model_fit.csv</a></td><td>The fitted line of plays on followers (log scale)</td><td class="num">0.1 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_comments_region.csv" download>ct_comments_region.csv</a></td><td>Where the commenters were: top-level comments under videos posted from Spain and from Morocco, by the commenter&#x27;s region</td><td class="num">0.5 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_tagpages.csv" download>ct_tagpages.csv</a></td><td>The one-page tag test of 18 October 2026, as scored for the report</td><td class="num">6.6 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_tag_mechanism.csv" download>ct_tag_mechanism.csv</a></td><td>What was measured for an unlinked tag (#menas) and the ordinary form of the same word (#mena)</td><td class="num">0.5 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_partner_accounts.csv" download>ct_partner_accounts.csv</a></td><td>The community partner&#x27;s key accounts: their Ceuta videos, codes and Ceuta-vs-other-posts ratio</td><td class="num">0.7 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_coverage.csv" download>ct_coverage.csv</a></td><td>How much of what search could return the two search routes found, by plays: an order-of-magnitude estimate</td><td class="num">0.4 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_methods_flow_counts.csv" download>ct_methods_flow_counts.csv</a></td><td>The counts the Method section prints</td><td class="num">3.9 KB</td></tr><tr><td><a class="dl" href="../chart_data/ct_methods_qa.csv" download>ct_methods_qa.csv</a></td><td>The method in steps: each step&#x27;s question, answer and count</td><td class="num">1.8 KB</td></tr></tbody>
+  </table></div>
+  <p class="table-note">Also: <a href="../report/report_numbers.json" download>report_numbers.json</a>, every number the report's text prints, and the <a href="../codebook/">codebook</a>. Licence: CC BY 4.0, attribution <em>Signal4 Analyses for Eticas Foundation</em>.</p>
+  <h2>Reading the numbers</h2>
+  <ul>
+    <li><strong>"Hateful" in headline counts means the model's <code>yes</code></strong> (clearly hateful). <code>borderline</code> is reported separately and is not counted as hate.</li>
+    <li><strong>Plays are not people.</strong> TikTok counts replays. "Plays beyond the followers" is reach beyond the following, not a head count.</li>
+    <li><strong>No one hand-coded a sample.</strong> Every code is the model's first pass.</li>
+    <li><strong>The corpus is what TikTok surfaced</strong>, not everything posted: its hashtag pages and search favour videos that already did well.</li>
+  </ul>
+  <h2>What is not here, and why</h2>
+  <p>The row-level files (one row per video, post, comment, creator or request) are not published. They are personal data, not anonymous data: each video or post ID leads back to an account, captions and transcripts are their authors' words, and commenters are private people, some of them minors. TikTok's and X's terms also restrict redistributing their content. Signal4 Analyses shared these files with Eticas Foundation for this study only. Researchers who need row-level data for a specific question can contact Eticas Foundation.</p>
+  </article>
+</div>
+
+<footer class="site-footer">
+  <div class="brandbar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="inner">
+    <div>
+      <h4>Eticas Foundation</h4>
+      <p>Community-led audit with the Institut de les Desigualtats. Data collection, coding and analysis by Signal4 Analyses.</p>
+    </div>
+    <div>
+      <h4>Licence</h4>
+      <p>The report, its figures and the tables in <code>chart_data/</code> are released under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Attribution: <em>Signal4 Analyses for Eticas Foundation</em>.</p>
+    </div>
+    <div>
+      <h4>About the codes</h4>
+      <p>Every code is a language model's first pass; no person hand-coded the data. Do not attribute hate to a named or identifiable account on the strength of these codes alone.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

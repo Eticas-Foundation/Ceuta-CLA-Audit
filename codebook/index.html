@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codebook — Ceuta | Eticas Foundation</title>
+<meta name="description" content="Codes and exact model prompts used in the Ceuta case study.">
+<meta property="og:title" content="Codebook — Ceuta | Eticas Foundation">
+<meta property="og:description" content="Codes and exact model prompts used in the Ceuta case study.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Raleway:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a class="logo" href="../"><img src="../assets/eticas-foundation-logo.png" alt="Eticas Foundation"></a>
+    <nav class="site-nav"><a href="../">Findings</a><a href="../report/">Report</a><a href="../draft/">Draft case study</a><a href="../data/">Data</a><a href="../codebook/" class="active">Codebook</a><a href="https://github.com/Eticas-Foundation/Ceuta-CLA-Audit">GitHub</a></nav>
+  </div>
+  <div class="brandbar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<section class="doc-head"><div class="inner">
+  <p class="eyebrow">Codebook · Signal4 Analyses</p>
+  <h1>How the content was coded</h1>
+  <p>What each code means, how it was assigned, and the exact prompts given to the model. Some sections describe files that are not published here (see <a href="../data/">Data</a>).</p>
+</div></section>
+<div class="doc-layout">
+  <aside class="toc"><div class="label">Contents</div><ul>
+<li><a href="#codebook" id="toc-codebook">Codebook</a></li>
+</ul></aside>
+  <article class="prose"><h1 id="codebook">Codebook</h1>
+<p>What each code in <code>videos.csv</code> and the comments files means, how it was assigned, and the exact prompts the model was given. The definition of hate is Southport’s (<em>Southport on X</em>) word for word — the three levels, the rule that reporting or condemning hate is not hate, and the tie-break toward <code>no</code> — with examples and a list of political actors localised to Ceuta, so the two cases’ <code>hateful</code> codes mean the same thing.</p>
+<h2 id="who-coded-and-how">Who coded, and how</h2>
+<p>One language model, Claude Haiku 5.5 (Anthropic), coded everything. No second model recoded the Ceuta videos and no person hand-coded any of the corpus, not even a sample: the only videos a person watched are the ones the report shows. How much the model matters is known from Southport: recoded by Haiku 5.5 under the same prompt, its posts agreed with the delivered codes (Claude Sonnet 5.5) on 91%, and most disagreements involved <code>borderline</code> (report, Method). Treat the video codes as a strong first pass. The comment codes are directional: a small model coding up to 100 items at once is a hard task.</p>
+<h2 id="videos-which-were-coded">Videos: which were coded</h2>
+<p>Only a video whose file we held could be coded from the whole video. Of the 43,984 corpus videos, 5,671 are photo posts (no video exists) and 725 had no usable file, leaving 37,588 (<code>video_file_held == "yes"</code>; 37,585 when the sample was drawn). The 9,472 coded videos (<code>coding_stratum</code> set) are:</p>
+<ul>
+<li><code>top</code>: the 5,031 most-played of those — not of the whole corpus, since some photo posts and videos without a file had more plays;</li>
+<li><code>random</code>: 1,524 drawn at random (fixed seed) from the other 32,554, each standing for 21.36 videos (<code>coding_weight</code>);</li>
+<li><code>walk_top100</code>: the remaining 2,440 Ceuta videos of the 100 most-played creators in the creator frame, for the within-creator comparison (no weight);</li>
+<li><code>added_20oct</code>: the other 194 videos first collected on 20 October, when #CeutaNoEstaSola was added at Eticas’s request, all coded (no weight);</li>
+<li><code>added_4nov</code>: the other 282 videos first collected on 4–5 November, from the accounts and terms Eticas’s partner named, all coded (no weight);</li>
+<li><code>added_11nov</code>: the other 1 first collected on 11 November, from <span class="citation" data-cites="davidsantosvlog">@davidsantosvlog</span>, on the partner’s list, all coded (no weight).</li>
+</ul>
+<p>Weighted estimates (<code>top</code> + <code>random</code>) therefore describe the 37,585 videos with a file when the sample was drawn. Photo posts were never coded from the video; their captions were coded on their own like every caption.</p>
+<h2 id="videos-three-stages">Videos: three stages</h2>
+<p>Each sampled video was coded from what a viewer sees and reads: the caption and hashtags, the on-screen text (read from one frame a second), a transcript where the video holds speech, and a set of frames (eight evenly spaced, plus every frame that looks new). The model cannot hear the audio. The transcript and on-screen text it read, word for word but masked, are in <code>video_content.csv</code>; the frames are not shipped.</p>
+<p><strong>Stage 1, every sampled video: one judgement of the whole video.</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>hateful</code></td>
+<td><code>yes</code> · <code>borderline</code> · <code>no</code></td>
+<td>Attacks, dehumanises or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (<code>yes</code>, “clearly hateful”); hostile through insinuation or policy talk tied to the event (<code>borderline</code>); everything else (<code>no</code>). Headline counts use <code>yes</code> only</td>
+</tr>
+<tr class="even">
+<td><code>evidence</code></td>
+<td>text</td>
+<td>The model’s own statement of what decided the code — the prompt asks for the deciding words verbatim or a short description of the image, but it is the model’s choice and wording — cut at 200 characters and masked like the caption. <strong>Blank for every video coded <code>no</code></strong>, so it cannot be used to look for hate the model missed</td>
+</tr>
+<tr class="odd">
+<td><code>stance</code></td>
+<td><code>hostile</code> · <code>counter</code> · <code>neutral</code> · <code>unclear</code></td>
+<td>Hostile to migrants, Moroccans or Muslims as groups; counter-speech (defends them or pushes back) is recorded, not folded into <code>no</code></td>
+</tr>
+<tr class="even">
+<td><code>irredentist</code></td>
+<td><code>yes</code> · <code>no</code> · <code>unclear</code></td>
+<td>Claims Ceuta for Morocco (“Sebta is Moroccan”, “occupied Ceuta”). A territorial claim, not hate by itself</td>
+</tr>
+<tr class="odd">
+<td><code>call_to_action</code></td>
+<td><code>violence</code> · <code>protest</code> · <code>none</code></td>
+<td>Southport’s list, unchanged</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Stage 2, only the videos judged <code>yes</code> or <code>borderline</code>: what the hostility is.</strong> Blank, or <code>none</code>, for videos judged <code>no</code>. Where the stage-2 prompt names a field differently, the column is given first.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>target</code></td>
+<td><code>muslims</code> · <code>migrants_asylum</code> · <code>ethnic_racial</code> · <code>spaniards</code> · <code>other</code></td>
+<td>The main group targeted (Southport’s list plus <code>spaniards</code>, reported separately)</td>
+</tr>
+<tr class="even">
+<td><code>target_detail</code></td>
+<td><code>moroccans_maghrebis</code>, <code>muslims</code>, <code>migrants_asylum</code>, <code>unaccompanied_minors</code>, <code>black_africans</code>, <code>amazigh</code>, <code>spaniards</code>, <code>ceutans</code> (Ceuta’s residents as a people), <code>other</code> (<code>\|</code>-separated)</td>
+<td>Every group targeted</td>
+</tr>
+<tr class="odd">
+<td><code>expressed_in</code></td>
+<td><code>caption</code> · <code>on_screen_text</code> · <code>speech</code> · <code>imagery</code> (<code>\|</code>-separated)</td>
+<td>Every part of the video where the hostility is expressed</td>
+</tr>
+<tr class="even">
+<td><code>carrier</code></td>
+<td>one of the parts above, <code>multiple</code> or <code>unclear</code></td>
+<td><code>expressed_in</code> summarised (not asked of the model)</td>
+</tr>
+<tr class="odd">
+<td><code>stage2_framing</code> (prompt: <code>reproduction_framing</code>)</td>
+<td><code>endorses</code> · <code>mocks_source</code> · <code>reports</code> · <code>condemns</code> · <code>unclear</code></td>
+<td>Whether the video adopts the hostility. Where stage 2 says anything other than <code>endorses</code>, stage 1’s code stands and the video was listed for review rather than changed</td>
+</tr>
+<tr class="even">
+<td><code>direction</code></td>
+<td><code>anti_migrant</code> · <code>anti_moroccan</code> · <code>anti_spanish</code> · <code>anti_state</code> · <code>mixed</code></td>
+<td>Which way the hostility runs</td>
+</tr>
+<tr class="odd">
+<td><code>genre</code></td>
+<td><code>news</code> · <code>official</code> · <code>commentary</code> · <code>mobilising</code> · <code>other</code></td>
+<td>Southport’s list, unchanged</td>
+</tr>
+<tr class="even">
+<td><code>format</code></td>
+<td><code>news_report</code>, <code>citizen_footage</code>, <code>commentary_to_camera</code>, <code>compilation_montage</code>, <code>reaction_or_duet</code>, <code>screen_recording</code>, <code>promotional</code>, <code>music_video</code>, <code>text_card</code>, <code>other</code></td>
+<td>TikTok’s production forms, kept out of <code>genre</code></td>
+</tr>
+<tr class="odd">
+<td><code>media_role</code></td>
+<td><code>carries_message</code> · <code>illustrates</code> · <code>unrelated</code> · <code>unclear</code></td>
+<td>Whether the pictures carry the message, illustrate the words, or are unrelated</td>
+</tr>
+</tbody>
+</table>
+<p>Stage 1 also recorded what the frames show (scene, fence or boats, uniformed personnel, children, flags); those notes were for the model’s own reading and are not shipped.</p>
+<p><strong>Stage 3, only the videos judged <code>yes</code> or <code>borderline</code> (added 24 October): what the hostility says.</strong> The same video and model, with stage 1’s verdict and evidence and stage 2’s targets attached. Stage 3 never changes stage 1’s code. The list of themes was drawn up by reading about 230 of the clearly hateful videos’ stage-1 and stage-2 evidence before any theme was coded.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>themes</code></td>
+<td><code>invasion</code> · <code>takeover</code> · <code>crime</code> · <code>sexual_threat</code> · <code>disease_filth</code> · <code>animal_cruelty</code> · <code>freeloading</code> · <code>religion_culture</code> · <code>weapon_of_morocco</code> · <code>government_blame</code> · <code>spreading</code> · <code>young_men</code> · <code>minors</code> · <code>anti_black</code> · <code>anti_spanish</code> · <code>other</code> (<code>\|</code>-separated)</td>
+<td>Every story the hostility tells about the group: the arrival as an invasion; the city taken over; crime; a sexual threat; disease or dirt; cruelty to animals as typical of the group; living off others; Islam or the group’s culture as a threat; Morocco sending them as a weapon; the government or NGOs to blame; Ceuta as the start of something wider; young men of military age; unaccompanied minors; hostility to Black people as such; hostility to Spaniards as a people</td>
+</tr>
+<tr class="even">
+<td><code>main_theme</code></td>
+<td>one of the above</td>
+<td>The theme that carries the hostility most</td>
+</tr>
+<tr class="odd">
+<td><code>forms</code></td>
+<td><code>slur</code> · <code>dehumanising</code> · <code>mass_metaphor</code> · <code>mockery</code> · <code>footage_as_proof</code> · <code>fear_testimony</code> · <code>conspiracy</code> (<code>\|</code>-separated; blank if none)</td>
+<td>How it is said: a slur; people as animals, vermin or filth; avalanche, wave or horde; jokes and memes; a clip presented as proof about the whole group; residents’ fear presented as proof; a hidden plan behind the arrival</td>
+</tr>
+<tr class="even">
+<td><code>demands</code></td>
+<td><code>expel</code> · <code>force</code> · <code>protest</code> · <code>close_border</code> · <code>none</code></td>
+<td>What it asks for. <code>none</code> is dropped where another demand is listed</td>
+</tr>
+<tr class="odd">
+<td><code>incident</code></td>
+<td>text</td>
+<td>The specific event the video shows or refers to, in the model’s words (English, at most eight words)</td>
+</tr>
+<tr class="even">
+<td><code>theme_evidence</code></td>
+<td>text</td>
+<td>The words or image that show the main theme, cut at 200 characters and masked like the caption</td>
+</tr>
+</tbody>
+</table>
+<h2 id="videos-the-topic-of-every-coded-video-added-24-october">Videos: the topic of every coded video (added 24 October)</h2>
+<p>What each coded video is about, hateful or not, and how it shows the people who crossed. Text only: the caption and hashtags, the on-screen text, the transcript and stage 1’s description of the frames; no frames were sent. The model was told not to judge hate.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>topic</code></td>
+<td><code>crossing</code> · <code>deaths_rescue</code> · <code>aftermath_city</code> · <code>security_returns</code> · <code>politics_spain</code> · <code>morocco_spain</code> · <code>minors</code> · <code>protest</code> · <code>solidarity</code> · <code>migrant_voices</code> · <code>unrelated</code> · <code>other</code></td>
+<td>The main subject: the entry itself; deaths and rescues; life in Ceuta afterwards; army, police and returns; Spanish politics; Morocco and relations between the two countries; unaccompanied minors; protests; support for Ceuta’s residents or for the people who crossed; the people who crossed speaking for themselves; content only tagged with Ceuta</td>
+</tr>
+<tr class="even">
+<td><code>topics</code></td>
+<td>the same (<code>\|</code>-separated)</td>
+<td>Every subject it covers, the main one included</td>
+</tr>
+<tr class="odd">
+<td><code>migrants_portrayed</code></td>
+<td><code>threat</code> · <code>victims</code> · <code>own_voice</code> · <code>crowd</code> · <code>mixed</code> · <code>not_shown</code></td>
+<td>How it shows the people who crossed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Too little to judge.</strong> A video judged <code>no</code> with at most one of caption, on-screen text and transcript to read is flagged <code>coding_basis_thin == True</code> and left out of every rate and every count.</p>
+<p><strong>Not hate:</strong> hostility toward Vox and Spanish nationalist accounts, the Spanish or Moroccan state, the Makhzen, the King, Guardia Civil and police, Frontex, the European Union or politicians. The target must be a group defined by religion, ethnicity, race, nationality or migration status. Hostile words from interviewees, passers-by or quoted politicians, passed on without being adopted, are reporting (<code>no</code>); hostile wording in the video’s own caption, narration or titles counts, even from a news outlet.</p>
+<h2 id="captions-on-their-own">Captions on their own</h2>
+<p><code>caption_hateful</code> (<code>yes</code> · <code>borderline</code> · <code>no</code>), set for every corpus video but 0 (the model returned no code for it): the same definition and rules, applied to the caption and hashtags alone, 20 captions to a request, without the video, its creator or its counts. It measures what a caption-only method would see, and it is the one code that covers every video, so use it to follow a creator across all their posts. The caption prompt also asked for target, evidence, stance, irredentist and genre; only <code>caption_hateful</code> ships. Applying the <code>caption_only</code> prompt below to the <code>caption</code> column is the way to check it; the video codes cannot be redone without the videos.</p>
+<h2 id="comments">Comments</h2>
+<p>Each request held one video’s comment section: its caption, a one-line summary of the video’s codes, and up to 100 comments and replies, each reply under the comment it answers. Each item was coded on its own words.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>hateful</code></td>
+<td><code>yes</code> · <code>borderline</code> · <code>no</code></td>
+<td>As above. The prompt’s values are <code>explicit</code>, <code>insinuation</code> and <code>none</code>; they are stored as <code>yes</code>, <code>borderline</code> and <code>no</code></td>
+</tr>
+<tr class="even">
+<td><code>stance_to_video</code></td>
+<td><code>endorses</code> · <code>disputes</code> · <code>neutral</code> · <code>off_topic</code></td>
+<td>Whether the comment agrees with the video, pushes back, neither, or is about something else</td>
+</tr>
+<tr class="odd">
+<td><code>mentions_feed</code></td>
+<td><code>True</code> · <code>False</code></td>
+<td>The commenter says the video reached them without their seeking it (“me sale esto”, “mi algoritmo”). The report counts it on top-level comments</td>
+</tr>
+<tr class="even">
+<td><code>stance_to_parent</code></td>
+<td><code>agrees</code> · <code>disagrees</code> · <code>neutral</code> · <code>off_topic</code> · <code>not_reply</code></td>
+<td>For a reply, against the item it answers; <code>not_reply</code> for a top-level comment</td>
+</tr>
+<tr class="odd">
+<td><code>counter_speech</code></td>
+<td><code>True</code> · <code>False</code></td>
+<td>For a reply: it pushes back on hostility toward a group in what it answers. <code>False</code> for a top-level comment</td>
+</tr>
+<tr class="even">
+<td><code>escalates</code></td>
+<td><code>True</code> · <code>False</code></td>
+<td>For a reply: it is more hostile to a group than what it answers. <code>False</code> for a top-level comment</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><code>language</code></strong> in the comments files is the language TikTok tags the comment with, not the model’s answer to the prompt’s <code>language</code> field.</li>
+<li><strong>Also shipped (24 October):</strong> <code>target</code> (the main group a hostile comment targets), <code>coded_language</code> (the language the model read the comment as; <code>ary</code> is Darija, which here also takes in Algerian Arabic) and, on top-level comments, <code>thread_shape</code> for threads with 5+ replies shown (<code>pile_on</code>, <code>argument</code>, <code>counter_wins</code>, <code>mixed</code>). The report’s figures on whom hateful replies targeted, their language and pile-on threads rest on them.</li>
+<li><strong>Asked of the model but not shipped:</strong> <code>evidence</code> (it quotes the comment’s words).</li>
+<li><strong>Shipped since 4 November:</strong> <code>stance_to_parent</code>, <code>counter_speech</code> and <code>escalates</code>, as the model returned them. The model gave reply codes to 152 top-level comments and <code>not_reply</code> to 327 replies; they ship as returned, so tell replies from comments by <code>thread_root</code>, not by these codes. No number in the report’s text rests on them.</li>
+<li><strong>“The most liked comments.”</strong> The comments prompt below calls the comments it was given “the most liked comments”. They were not: they are the first page TikTok returned (4 to 111 top-level comments a video), in TikTok’s own order, which weighs likes and language among other things. The prompt’s wording is kept as it was run.</li>
+<li>Comments from the earlier collection (<code>inherited == "yes"</code>) were coded like the others.</li>
+<li>The model never saw who wrote a comment, and the files do not say: there is no commenter column.</li>
+</ul>
+<h2 id="the-exact-prompts">The exact prompts</h2>
+<p>Word for word, as given to the model. Each prompt’s version is the first 12 characters of its SHA-256: video_stage1 <code>71e62f4e77e7</code>, video_stage2 <code>b148bb3e4c4b</code>, video_stage3 <code>900752305a33</code>, video_topic <code>9ea82c0298b9</code>, caption_only <code>fc8a36d7e75f</code>, comments <code>6980c5f6250f</code>. Where a prompt’s wording and the data differ, the notes above the prompts say so (field names, value names, the order of comments).</p>
+<h3 id="video_stage1">video_stage1</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the video attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Interviewees, passers-by and quoted or filmed politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the video&#39;s own voice (its caption, narration or titles) counts, even from a news outlet. Judge the wording and the imagery, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+Each video comes as its caption and hashtags, its on-screen text (read by OCR, so it may contain reading errors), a transcript of what is said (automatic; may be absent), and frames in time order. You cannot hear the audio.
+
+Describe what the frames show and record the visual facts. Then judge the video as a whole:
+ - hateful: yes, borderline or no, by the definition above.
+ - evidence: the words that decided it, verbatim, or a short description of the image; &quot;&quot; when hateful is no.
+ - stance: hostile (to migrants, Moroccans or Muslims as groups), counter (defends them or pushes back on hostility toward them), neutral, or unclear.
+ - irredentist: yes if it claims Ceuta for Morocco (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;), no, or unclear.
+ - call_to_action: violence, protest, or none.</code></pre>
+<h3 id="video_stage2">video_stage2</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the video attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Interviewees, passers-by and quoted or filmed politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the video&#39;s own voice (its caption, narration or titles) counts, even from a news outlet. Judge the wording and the imagery, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+Each video comes as its caption and hashtags, its on-screen text (read by OCR, so it may contain reading errors), a transcript of what is said (automatic; may be absent), and frames in time order. You cannot hear the audio.
+
+A first pass judged this video hateful or borderline; its verdict and evidence come with the video. Describe the hostility:
+ - target: the main group it is hostile to; target_detail: every group it is hostile to.
+ - expressed_in: every part where the hostility is expressed: caption (caption and hashtags), on_screen_text, speech (transcript), imagery (what the pictures show). In `evidence`, the deciding words verbatim for each listed part (for imagery, a short description); &quot;&quot; for the others.
+ - reproduction_framing: endorses (adopts the hostility), mocks_source, reports (passes on other people&#39;s hostile words without adopting them), condemns, or unclear. Choose reports or condemns only if the first pass was wrong.
+ - direction: anti_migrant, anti_moroccan, anti_spanish, anti_state, or mixed.
+ - genre and format of the video; media_role: whether the pictures carry the message, illustrate the words, or are unrelated to them.</code></pre>
+<h3 id="video_stage3">video_stage3</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the video attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Interviewees, passers-by and quoted or filmed politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the video&#39;s own voice (its caption, narration or titles) counts, even from a news outlet. Judge the wording and the imagery, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+Each video comes as its caption and hashtags, its on-screen text (read by OCR, so it may contain reading errors), a transcript of what is said (automatic; may be absent), and frames in time order. You cannot hear the audio.
+
+A first pass judged this video hateful or borderline; its verdict, its evidence and the groups it targets come with the video. Name what the hostility says about the group, how it says it and what it asks for. List only what the video itself does, in its own voice or by the way it uses other people&#39;s words and pictures.
+ - themes: every story it tells about the group. invasion (the arrival as an invasion, assault, attack or conquest of Ceuta, Spain or Europe); takeover (they have taken the streets, beaches, parks, homes or services: the city is no longer ours); crime (theft, looting, break-ins or squatting, assaults, stabbings, gangs, criminal pasts, released prisoners); sexual_threat (rape, sexual assault or harassment of women or girls); disease_filth (disease, dirt, smell, excrement, rubbish); animal_cruelty (harming animals, presented as typical of the group); freeloading (benefits, free housing or services, not working, expensive phones, living off taxpayers); religion_culture (Islam or their culture as incompatible or a threat: women, veils, terrorism, the Reconquista); weapon_of_morocco (Morocco, its state or its King sent them as a weapon: hybrid war, pressure on Spain, a fifth column); government_blame (the Spanish government, the left, NGOs or the EU let them in or protect them, tied to hostility to the group: betrayal, &quot;new voters&quot;, regularisation); spreading (Ceuta is the start: the rest of Spain, Europe or another country is next; the population is being replaced); young_men (the arrivals as young men of military age, with no women or families); minors (unaccompanied minors as a threat or a burden); anti_black (hostility to Black or sub-Saharan people as such); anti_spanish (hostility to Spaniards or Ceutans as a people); other.
+ - main_theme: the one theme that carries the hostility most.
+ - forms: how it is said, every one that applies. slur (an ethnic or religious slur); dehumanising (animals, vermin, plague, parasites, zombies or filth as a metaphor for people); mass_metaphor (avalanche, flood, waves, tide, hordes, swarm); mockery (jokes, memes, parody or ridicule); footage_as_proof (a clip presented as proof of a claim about the whole group); fear_testimony (residents&#39; fear or distress presented as proof); conspiracy (a hidden plan or orchestrator behind the arrival).
+ - demands: what it asks for, every one that applies. expel (expel, deport or send back all of them, &quot;fuera&quot;); force (the army, armed force, beatings, shooting, vigilantes); protest (rallies, marches, camps); close_border (walls, closing the border, no more entries); none.
+ - incident: the specific event it shows or refers to, if any, in at most eight words of English (&quot;a dolphin calf killed on a beach&quot;, &quot;young men entering a building at night&quot;); &quot;&quot; if none.
+ - theme_evidence: the words or the image that show the main theme, verbatim, at most 30 words.</code></pre>
+<h3 id="video_topic">video_topic</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+Each video comes as its caption and hashtags, its on-screen text (read by OCR, so it may contain reading errors), a transcript of what is said (automatic; may be absent) and a first pass&#39;s description of its frames. Say what the video is about and how it shows the people who crossed. Do not judge whether it is hateful.
+ - topic: the main subject. crossing (the entry itself: swimmers, the breakwater, the fence, crowds arriving); deaths_rescue (bodies, drownings, rescues, the missing, injuries); aftermath_city (life in Ceuta afterwards: streets, camps, beaches, shelters, residents&#39; experience); security_returns (the army, police and Guardia Civil, returns, border control); politics_spain (the Spanish government, parties, parliament, politicians&#39; statements); morocco_spain (the Moroccan state, relations between the two countries, claims over Ceuta and Melilla, Morocco&#39;s role); minors (unaccompanied minors: their care, numbers, transfers); protest (rallies, marches or camps about the event); solidarity (support for Ceuta&#39;s residents or for the people who crossed, donations, &quot;Todos somos caballas&quot;); migrant_voices (the people who crossed speaking for themselves: motives, journeys, life after); unrelated (only tagged or captioned with Ceuta: entertainment, sport, travel, other news); other.
+ - topics: every subject it covers, the main one included.
+ - migrants_portrayed: how it shows the people who crossed. threat (dangerous, criminal, invaders); victims (suffering, exploited, in danger); own_voice (speaking for themselves); crowd (a mass, without comment either way); mixed; not_shown (absent, or not a subject).</code></pre>
+<h3 id="caption_only">caption_only</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the caption attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Interviewees, passers-by and quoted politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the caption&#39;s own voice counts, even from a news outlet. Judge the wording, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+You are given the captions and hashtags of TikTok videos, one per line as {&quot;id&quot;, &quot;date&quot;, &quot;text&quot;}. You do not see the videos, who posted them or their counts. Code each caption on its own words. For every id:
+ - hateful: yes, borderline or no, by the definition above.
+ - target: the group it is hostile to (moroccans_maghrebis, muslims, migrants_asylum, unaccompanied_minors, black_africans, spaniards, other), or none when hateful is no.
+ - evidence: the words that decided it, verbatim, when hateful is not no; otherwise &quot;&quot;.
+ - stance: hostile (to migrants, Moroccans or Muslims as groups), counter (defends them or pushes back on hostility toward them), neutral, or unclear.
+ - irredentist: yes if it claims Ceuta for Morocco, no, or unclear.
+ - genre: news, official, commentary, mobilising, or other.
+Return every id given, once, in &quot;codes&quot;.</code></pre>
+<h3 id="comments-1">comments</h3>
+<pre><code>You are coding TikTok videos about the Ceuta migration event of summer 2026 for a hate-speech audit.
+Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of
+people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from
+Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back
+to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and
+anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot;
+(&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use
+by what the video says. Videos may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh
+or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the comment attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Judge the wording, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards.
+
+You are given ONE TikTok video&#39;s comment section: the video&#39;s caption and hashtags, a one-line summary of how the
+video itself was coded (or &quot;video not coded&quot;), then comments, each with the replies held under it indented below it.
+Each line is {&quot;id&quot;, &quot;text&quot;}; a reply may carry &quot;to&quot;: the id of the reply it answers (by @-mention); otherwise it
+answers the comment above it. You do not see who wrote anything, their counts or the video itself. These are the most
+liked comments and the first page of replies under the most-argued ones, not the whole section.
+
+Code EVERY item (comment or reply) on its own words, using the caption, the video summary and what it answers only to
+understand what it means:
+ hateful           &quot;none&quot; (&quot;no&quot; above), &quot;insinuation&quot; (&quot;borderline&quot; above: hostile to the group by implication only)
+                   or &quot;explicit&quot; (&quot;yes&quot; above); a comment that quotes hate in order to reject it is none
+ target            the group it is hostile to: moroccans_maghrebis, muslims, migrants_asylum, unaccompanied_minors,
+                   black_africans, spaniards, other; &quot;none&quot; when hateful is none
+ evidence          the words that decided it, verbatim, when hateful is not none; otherwise &quot;&quot;
+ mentions_feed     true if it says the video reached them without their seeking it (&quot;me sale esto&quot;, &quot;mi algoritmo&quot;,
+                   &quot;why is this on my For You page&quot;), else false
+ language          es, ar (Modern Standard Arabic), ary (Darija, in Arabic or Latin letters), fr, en or other;
+                   &quot;none&quot; for emoji or tags only
+ stance_to_video   endorses, disputes, neutral, or off_topic (about something else, or only tags or emoji)
+For a REPLY also code, against the item it answers (for a comment use &quot;not_reply&quot; and false):
+ stance_to_parent  agrees, disagrees, neutral, off_topic
+ counter_speech    true if it pushes back on hostility toward a group in what it answers, else false
+ escalates         true if it is more hostile to a group than what it answers, else false
+Then for every comment with 5 or more replies shown, code the thread as a whole:
+ thread_shape      pile_on (replies mostly join in), argument (replies split and argue), counter_wins (pushback
+                   dominates a hostile comment), mixed (none of these clearly)
+Return every item id given, once, in &quot;items&quot;, and one entry per such thread in &quot;threads&quot;.</code></pre>
+<h2 id="what-followed-each-prompt">What followed each prompt</h2>
+<p>The templates below were filled in for each request (<code>{...}</code> marks a value). A video request was <code>message_video</code>, then each frame as <code>message_video_frame</code> followed by the image, then the closing line for stage 1, 2 or 3 (stage 3 adds stage 2’s targets, joined by commas). A topic request was <code>message_topic</code> alone, with stage 1’s description of the frames in place of the frames. A comment request was <code>message_comments</code>, with <code>message_video_summary</code> filled from the video’s codes. A caption request was <code>message_captions</code>, 20 captions at a time.</p>
+<h3 id="message_video">message_video</h3>
+<pre><code>CAPTION AND HASHTAGS{caption_cut}:
+{caption}
+{hashtags}
+
+ON-SCREEN TEXT (OCR, seconds on screen){ocr_cut}:
+{ocr}
+
+TRANSCRIPT ({transcript_status}){transcript_cut}:
+{transcript}
+
+FRAMES ({n_frames}, video length {duration_s}s):</code></pre>
+<h3 id="message_video_frame">message_video_frame</h3>
+<pre><code>frame at {t:.1f}s</code></pre>
+<h3 id="message_video_stage1_close">message_video_stage1_close</h3>
+<pre><code>Judge this video. Return the JSON object.</code></pre>
+<h3 id="message_video_stage2_close">message_video_stage2_close</h3>
+<pre><code>First pass: hateful = {hateful}; evidence: {evidence}
+Describe the hostility in this video. Return the JSON object.</code></pre>
+<h3 id="message_video_stage3_close">message_video_stage3_close</h3>
+<pre><code>First pass: hateful = {hateful}; evidence: {evidence}; targets: {targets}
+Name the themes, forms and demands of the hostility in this video. Return the JSON object.</code></pre>
+<h3 id="message_topic">message_topic</h3>
+<pre><code>CAPTION AND HASHTAGS{caption_cut}:
+{caption}
+{hashtags}
+
+ON-SCREEN TEXT (OCR, seconds on screen){ocr_cut}:
+{ocr}
+
+TRANSCRIPT ({transcript_status}){transcript_cut}:
+{transcript}
+
+FRAMES, AS DESCRIBED BY A FIRST PASS (video length {duration_s}s):
+{scene}
+
+Say what this video is about. Return the JSON object.</code></pre>
+<h3 id="message_comments">message_comments</h3>
+<pre><code>CAPTION AND HASHTAGS:
+{caption}
+{hashtags}
+
+VIDEO: {video_summary}
+
+COMMENTS ({n_items} items):
+{items}
+
+Code every item. Return the JSON object.</code></pre>
+<h3 id="message_video_summary">message_video_summary</h3>
+<pre><code>video coded hateful={hateful}, stance={stance}, target={target}, direction={direction}, genre={genre}; scene: {scene}</code></pre>
+<h3 id="message_captions">message_captions</h3>
+<pre><code>CAPTIONS ({n_items}):
+{items}
+
+Code every caption. Return the JSON object.</code></pre>
+<h2 id="x-posts-report-section-7-the-exact-prompts">X posts (report Section 7): the exact prompts</h2>
+<p>The posts in <code>x_posts.csv</code> were coded by the same model (Claude Haiku 5.5) on Ceuta’s delivered video prompts, reworded for posts: stage 1 for every post, stage 3 for the hateful and borderline ones (there is no stage 2 on X). Versions: x_stage1 <code>61a02446c351</code>, x_stage3 <code>06c52d7e4a0d</code>. The model saw the post’s text and images (a video’s preview frame only) and, for a quote or reply, the post it points to.</p>
+<h3 id="x_stage1">x_stage1</h3>
+<pre><code>You are coding X (Twitter) posts about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the post says. Posts may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the post attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Quoted, filmed or pictured people and politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the post&#39;s own voice (its text, or words its author put on an image) counts, even from a news outlet. Judge the wording and the imagery, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+Each post comes as its date, its full text, its images if any (for a video or GIF, only its preview frame) and, when it quotes or replies to another post, that other post&#39;s text, marked as such. You do not see who posted it or its counts. Code the post on its own words and images: the other post is context, and hostile words in it count only if the post adopts or endorses them.
+
+Judge the post as a whole:
+ - hateful: yes, borderline or no, by the definition above.
+ - evidence: the words that decided it, verbatim, or a short description of the image; &quot;&quot; when hateful is no.
+ - target: the group it is hostile to (moroccans_maghrebis, muslims, migrants_asylum, unaccompanied_minors, black_africans, spaniards, other), or none when hateful is no.
+ - stance: hostile (to migrants, Moroccans or Muslims as groups), counter (defends them or pushes back on hostility toward them), neutral, or unclear.
+ - irredentist: yes if it claims Ceuta for Morocco (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;), no, or unclear.
+ - call_to_action: violence, protest, or none.
+ - genre: news, official, commentary, mobilising, or other.</code></pre>
+<h3 id="x_stage3">x_stage3</h3>
+<pre><code>You are coding X (Twitter) posts about the Ceuta migration event of summer 2026 for a hate-speech audit. Facts of the case: on 30 July 2026 (Morocco&#39;s Throne Day), from late morning into the night, tens of thousands of people, most of them young Moroccans and thousands of them minors, entered the Spanish enclave of Ceuta from Morocco, mostly by swimming or walking round the breakwater at Tarajal. Spain deployed the army; most went back to Morocco within days. Over the following weeks the event became a focus for anti-migrant, anti-Moroccan and anti-Muslim mobilisation in Spain and for Moroccan claims over Ceuta (&quot;Sebta occupied&quot;). &quot;Todos somos caballas&quot; (&quot;we are all caballas&quot;, i.e. Ceutans) is a pro-Ceuta solidarity campaign launched on 11 September; judge each use by what the post says. Posts may be in Spanish, Moroccan Darija, Modern Standard Arabic, French, English, Amazigh or other languages, and may mix them. Code hateful content matter-of-factly.
+
+hateful: &quot;yes&quot; if the post attacks, dehumanises, or generalises negatively about people because of religion, ethnicity, race, nationality or migration status (e.g. Moroccans/Muslims/migrants as invaders, criminals, rapists, a threat to be removed; slurs such as &quot;moros&quot;, &quot;menas&quot; used as a slur, &quot;invasores&quot;; blaming a whole group for crimes or disorder); &quot;borderline&quot; if it is hostile to a group but mainly via policy or insinuation (e.g. &quot;efecto llamada&quot;, &quot;esto no es inmigración&quot;, &quot;ya sabemos quiénes son&quot; tied to the event); &quot;no&quot; otherwise. Reporting on, quoting or condemning hate is &quot;no&quot;. Hostility toward Vox and Spanish nationalist accounts, the Spanish government and state, Guardia Civil and police, Frontex, the Moroccan state, the Makhzen, King Mohammed VI, Moroccan and Spanish politicians or the European Union is NOT hateful (they are not a protected group): code &quot;no&quot;. The target must be a group defined by religion, ethnicity, race, nationality or migration status. When unsure between &quot;borderline&quot; and &quot;no&quot;, choose &quot;no&quot;.
+Quoted, filmed or pictured people and politicians are other people: passing on their hostile words without adopting them is reporting (&quot;no&quot;). Hostile wording in the post&#39;s own voice (its text, or words its author put on an image) counts, even from a news outlet. Judge the wording and the imagery, not the topic: factual reporting of numbers, crossings, deaths or returns is &quot;no&quot;. A territorial claim (&quot;Sebta is Moroccan&quot;, &quot;occupied Ceuta&quot;) is not hate by itself; code it as irredentist. Hostility toward Spaniards or Ceutans as a people is coded with target = spaniards and reported separately.
+
+Each post comes as its date, its full text, its images if any (for a video or GIF, only its preview frame) and, when it quotes or replies to another post, that other post&#39;s text, marked as such. You do not see who posted it or its counts. Code the post on its own words and images: the other post is context, and hostile words in it count only if the post adopts or endorses them.
+
+A first pass judged this post hateful or borderline; its verdict, its evidence and the groups it targets come with the post. Name what the hostility says about the group, how it says it and what it asks for. List only what the post itself does, in its own voice or by the way it uses other people&#39;s words and images.
+ - themes: every story it tells about the group. invasion (the arrival as an invasion, assault, attack or conquest of Ceuta, Spain or Europe); takeover (they have taken the streets, beaches, parks, homes or services: the city is no longer ours); crime (theft, looting, break-ins or squatting, assaults, stabbings, gangs, criminal pasts, released prisoners); sexual_threat (rape, sexual assault or harassment of women or girls); disease_filth (disease, dirt, smell, excrement, rubbish); animal_cruelty (harming animals, presented as typical of the group); freeloading (benefits, free housing or services, not working, expensive phones, living off taxpayers); religion_culture (Islam or their culture as incompatible or a threat: women, veils, terrorism, the Reconquista); weapon_of_morocco (Morocco, its state or its King sent them as a weapon: hybrid war, pressure on Spain, a fifth column); government_blame (the Spanish government, the left, NGOs or the EU let them in or protect them, tied to hostility to the group: betrayal, &quot;new voters&quot;, regularisation); spreading (Ceuta is the start: the rest of Spain, Europe or another country is next; the population is being replaced); young_men (the arrivals as young men of military age, with no women or families); minors (unaccompanied minors as a threat or a burden); anti_black (hostility to Black or sub-Saharan people as such); anti_spanish (hostility to Spaniards or Ceutans as a people); other.
+ - main_theme: the one theme that carries the hostility most.
+ - forms: how it is said, every one that applies. slur (an ethnic or religious slur); dehumanising (animals, vermin, plague, parasites, zombies or filth as a metaphor for people); mass_metaphor (avalanche, flood, waves, tide, hordes, swarm); mockery (jokes, memes, parody or ridicule); footage_as_proof (a video or image presented as proof of a claim about the whole group); fear_testimony (residents&#39; fear or distress presented as proof); conspiracy (a hidden plan or orchestrator behind the arrival).
+ - demands: what it asks for, every one that applies. expel (expel, deport or send back all of them, &quot;fuera&quot;); force (the army, armed force, beatings, shooting, vigilantes); protest (rallies, marches, camps); close_border (walls, closing the border, no more entries); none.
+ - incident: the specific event it shows or refers to, if any, in at most eight words of English (&quot;a dolphin calf killed on a beach&quot;, &quot;young men entering a building at night&quot;); &quot;&quot; if none.
+ - theme_evidence: the words or the image that show the main theme, verbatim, at most 30 words.</code></pre>
+</article>
+</div>
+
+<footer class="site-footer">
+  <div class="brandbar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="inner">
+    <div>
+      <h4>Eticas Foundation</h4>
+      <p>Community-led audit with the Institut de les Desigualtats. Data collection, coding and analysis by Signal4 Analyses.</p>
+    </div>
+    <div>
+      <h4>Licence</h4>
+      <p>The report, its figures and the tables in <code>chart_data/</code> are released under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Attribution: <em>Signal4 Analyses for Eticas Foundation</em>.</p>
+    </div>
+    <div>
+      <h4>About the codes</h4>
+      <p>Every code is a language model's first pass; no person hand-coded the data. Do not attribute hate to a named or identifiable account on the strength of these codes alone.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

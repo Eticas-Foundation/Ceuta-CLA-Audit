@@ -31,6 +31,9 @@ The study collected 43,984 TikTok videos that name Ceuta (13,976 accounts, 3.76 
 ├── draft/
 │   └── ceuta-case-study-draft.md  # DRAFT of the Eticas Foundation / Institut de les Desigualtats case study
 │
+├── index.html, report/, draft/, data/, codebook/, assets/   # the website (GitHub Pages)
+├── _site_src/                   # the site's source: `python3 _site_src/build.py` rebuilds the HTML (needs pandoc)
+│
 └── README.md
 ```
 
